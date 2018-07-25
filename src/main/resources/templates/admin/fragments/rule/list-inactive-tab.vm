@@ -1,0 +1,89 @@
+
+			<table class="aui aui-table-sortable">
+		    <thead>
+		        <tr>
+		         	<th id="status" class="aui-table-column-unsortable">$action.getText('csl.admin.securityrule.list.status.label')</th>
+		         	<th id="name">$action.getText('csl.admin.securityrule.list.tab.title')</th>
+		            <th id="applicationDate">$action.getText('csl.admin.securityrule.list.applicationdate.label')</th>
+		            <th id="creationDate">$action.getText('csl.admin.securityrule.list.creationdate.label')</th>
+		            <th id="creationUser">$action.getText('csl.admin.securityrule.list.creator.label')</th>
+		            <th id="jql">$action.getText('csl.admin.securityrule.list.jql.label')</th>
+		            <th id="jira-events">$action.getText('csl.admin.securityrule.list.events.label')</th>
+		            <th id="securityid">$action.getText('csl.admin.securityrule.list.securitylvl.label')</th>
+		            <th id="priority"  >$action.getText('csl.admin.securityrule.list.priority.label')</th>
+		            <th id="actions" class="aui-table-column-unsortable">Actions</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		    #if($action.getInactivesSecurityRules().size() > 0)
+			#foreach ($rule in $action.getInactivesSecurityRules())
+		        <tr>
+		         	<td headers="active">
+		         		#if($action.hasPendingStatus($rule))
+							<span class="orange aui-icon aui-icon-small aui-iconfont-time tooltiped" title="$action.getTooltip($rule)"></span>
+						#elseif ($rule.getActive() )
+							<span class="aui-icon aui-icon-small aui-iconfont-success green tooltiped" title="$action.getTooltip($rule)"></span>  
+						 #else
+						 	<span class="aui-icon aui-icon-small aui-iconfont-devtools-task-disabled orange tooltiped" title="$action.getTooltip($rule)"></span>
+						 #end
+		         	</td>
+		         	<td headers="name">$rule.name</td>
+		            <td headers="applicationDate">$action.formatDate($rule.applicationDate)</td>
+		            <td headers="creationDate">$action.formatDate($rule.creationDate)</td>
+		             <td headers="creationUser">$rule.creationUser</td>
+		             <td headers="jql">$rule.jql</td>
+		             <td headers="jira-events">
+		             	#foreach ($event in $rule.getEvents())
+							<span id="jira-events" class="bold" >  
+								$event.getJiraEventName()
+							</span>
+							<br>
+						#end
+					</td>
+		            <td headers="securityid">$rule.getJiraSecurityName()</td>
+		            <td headers="priority">$rule.priority</td>
+		             
+		            <td headers="actions-active">
+						    <ul class="menu" class="action">
+						        <li>
+						        	<a href="#" id="edit-sr-$rule.id" 
+										data-id="$rule.id" 
+										data-name="$rule.name"
+										data-priority="$rule.priority"
+										data-jql="$rule.jql"
+										data-security-lvl="$rule.jiraSecurityId"
+										data-active="$rule.active"
+										data-edit-date-application="$action.formatDateAsDefault($rule.applicationDate)" 
+										data-edit-time-application="$action.formatTime($rule.applicationDate)" 
+										data-events="$rule.getSimpleEventsList()" >$action.getText('csl.admin.securityrule.list.actions.edit.label')</a>
+						        </li>
+						        #if($action.hasPendingStatus($rule) == false)
+							        #if($rule.getDeleted() != true)
+									<li>
+							        	<a href="#" id="delete-sr-$rule.id"
+									 	   data-id="$rule.id" 
+									 	   data-name="$rule.name">$action.getText('csl.admin.securityrule.list.actions.delete.label')</a>
+									</li>
+									<li>
+										<a href="#" id="activate-sr-$rule.id"
+										 data-id="$rule.id" 
+										 data-name="$rule.name" 
+										 >
+									 		$action.getText('csl.admin.securityrule.list.actions.activate.label')</a>
+									</li>
+							        #end
+						     	 #else
+							     	<li>
+							        	<a href="#" id="cancel-sr-$rule.id"
+									 	   data-id="$rule.id" 
+									 	   data-name="$rule.name">$action.getText('csl.admin.securityrule.list.actions.cancel.label')</a>
+									</li>
+						        #end
+						    </ul>
+		            </td>
+		        </tr>
+	        	#end
+			#end
+		    </tbody>
+		</table>
+		

@@ -1,0 +1,54 @@
+$webResourceManager.requireResourcesForContext("csl-admin")
+<html>
+   <head>
+      <title>$action.getText('csl.admin.title')</title>
+      <meta name="decorator" content="atl.admin" />
+      <meta name="admin.active.section" content="admin_plugins_menu/csl_admin_section"/>
+      <meta name="admin.active.tab" content="csl_see_log"/>
+   </head>
+   <body>
+
+ 	<header class="aui-page-header">
+        <div class="aui-page-header-inner">
+            <div class="aui-page-header-main">
+               <h2>$action.getText('csl.admin.securityrule.audit.log.title')</h2>
+            </div>
+     </header>     
+    <table class="aui aui-table-sortable">
+    <thead>
+        <tr>
+         	<th id="eventDate">Event date</th>
+         	<th id="author">Author</th>
+            <th id="message">Message</th>
+            <th id="securityRule">Security Rule</th>
+        </tr>
+    </thead>
+    <tbody>
+    #if($action.getAllAuditLog().size() > 0)
+	#foreach ($auditLog in $action.getAllAuditLog())
+        <tr>
+         	<td headers="eventDate">
+         		$auditLog.eventDate
+            </td>
+            <td headers="author">
+         		$auditLog.authorName
+            </td>
+            <td headers="message">
+         		$auditLog.message
+            </td>
+            <td headers="securityRule">
+         		$auditLog.idSecurityRule
+            </td>
+        </tr>
+    	#end
+	#end
+    </tbody>
+</table>
+    
+<div class="aui-page-header-actions">
+    <div class="aui-buttons">
+    </div>
+</div>
+   
+   </body>
+</html>

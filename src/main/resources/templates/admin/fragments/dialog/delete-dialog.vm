@@ -1,0 +1,40 @@
+ <section role="dialog" id="delete-dialog" class="aui-layer aui-dialog2 aui-dialog2-medium" aria-hidden="true">
+		   <!-- Dialog header -->
+		   <header class="aui-dialog2-header">
+		      <!-- The dialog's title -->
+		      <h2 class="aui-dialog2-header-main">
+					$action.getText('csl.admin.securityrule.delete.popup.title')
+			  </h2>
+		      <a class="aui-dialog2-header-close">
+		      <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+		      </a>
+		   </header>
+		   <div class="aui-dialog2-content">
+		   
+		     <div id="delete-form-error" class="aui-message aui-message-error hide">
+			    <p class="title">
+			        <strong>$action.getText('csl.admin.securityrule.delete.popup.error.title')</strong>
+			    </p>
+			    <p></p>
+			</div>
+		   
+		      <form id="delete-form" class="aui">
+		         <div class="field-group">
+		            <label for="delete-application-date">$action.getText('csl.admin.securityrule.delete.applicationdate.label') <span class="aui-icon icon-required"></label>
+		            <input class="aui-date-picker medium-field" id="delete-application-date" type="date"  min="2018-01-01" />
+		            <input type="text" id="delete-application-date-time" name="delete-application-date-time" class="timepicker short-field"/>
+		            <div class="description">$action.getText('csl.admin.securityrule.delete.applicationdate.descr') </div>
+		         </div>
+		        
+		         <div class="buttons-container">
+		            <div class="buttons">
+		               <input class="aui-button aui-button-primary" type="submit" value="$action.getText('csl.admin.securityrule.delete.save.label')" id="save-button">
+		               <span id="delete-loading" class="aui-icon aui-icon-wait"></span>
+		            </div>
+		         </div>
+		         
+		         <input type="hidden" id="delete-rule-id" name="delete-rule-id" >
+		         <input type="hidden" id="delete-rule-name" name="delete-rule-name" >
+		      </form>
+		   </div>
+		</section>

@@ -1,0 +1,39 @@
+ <section role="dialog" id="cancel-dialog" class="aui-layer aui-dialog2 aui-dialog2-medium" aria-hidden="true">
+		   <!-- Dialog header -->
+		   <header class="aui-dialog2-header">
+		      <!-- The dialog's title -->
+		      <h2 class="aui-dialog2-header-main">
+					$action.getText('csl.admin.securityrule.cancel.popup.title')
+			  </h2>
+		      <a class="aui-dialog2-header-close">
+		      <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+		      </a>
+		   </header>
+		   <div class="aui-dialog2-content">
+		   
+		     <div id="cancel-form-error" class="aui-message aui-message-error hide">
+			    <p class="title">
+			        <strong>$action.getText('csl.admin.securityrule.cancel.popup.error.title')</strong>
+			    </p>
+			    <p></p>
+			</div>
+		      <form id="cancel-form" class="aui">
+		      
+		        <div id="cancel-form-warning" class="aui-message aui-message-warning">
+				    <p class="title">
+				        <strong>Warning</strong>
+				    </p>
+				    <p>$action.getText('csl.admin.securityrule.cancel.warning.label') <span id="cancel-rule-name"></span> </p>
+				</div> 
+		         <div class="buttons-container">
+		            <div class="buttons">
+		               <input class="aui-button aui-button-primary" type="submit" value="$action.getText('csl.admin.securityrule.cancel.save.label')" id="save-button">
+		               <span id="cancel-loading" class="aui-icon aui-icon-wait"></span>
+		            </div>
+		         </div>
+		         
+		         <input type="hidden" id="cancel-rule-id" name="cancel-rule-id" >
+		         <input type="hidden" id="cancel-rule-name" name="cancel-rule-name" >
+		      </form>
+		   </div>
+		</section>

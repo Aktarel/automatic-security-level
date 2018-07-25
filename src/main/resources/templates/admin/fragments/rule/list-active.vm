@@ -1,0 +1,151 @@
+
+<div id="no-rule-message" class="aui-message aui-message-info 
+					#if($action.getActivesSecurityRules().size() > 0) hide #end
+				">
+	    <p class="title">
+	        <strong>Aucune règle de sécurité définie</strong>
+	    </p>
+	    <p>Pour ajouter une nouvelle règle de sécurité, cliquer le bouton ajouter en haut à droite</p>
+	</div>
+
+#if($action.getActivesSecurityRules().size() > 0)
+	#foreach ($rule in $action.getActivesSecurityRules())
+		<div id="rule-$rule.id">
+			<div class="aui-group">
+				<div class="aui-item bold">
+					<h3>
+						<b>$action.getText('csl.admin.securityrule.list.title', $rule.name) </b>
+						&nbsp;
+						#if($action.hasPendingStatus($rule))
+							<span class="orange aui-icon aui-icon-small aui-iconfont-time"></span>
+						#end
+					</h3>
+				</div>
+				
+				<div class="aui-item right" style="vertical-align: bottom;" >
+						<a href="#actions" aria-owns="actions" aria-haspopup="true" class="aui-button aui-dropdown2-trigger aui-style-default">$action.getText('csl.admin.securityrule.list.actions.label')</a></p>
+						<div id="actions" class="aui-dropdown2 aui-style-default">
+						    <ul class="aui-list-truncate">
+						        <li>
+						        	<a href="#" id="edit-sr-$rule.id" 
+										data-id="$rule.id" 
+										data-name="$rule.name"
+										data-priority="$rule.priority"
+										data-jql="$rule.jql"
+										data-security-lvl="$rule.jiraSecurityId"
+										data-active="$rule.active"
+										data-events="$rule.getSimpleEventsList()" >$action.getText('csl.admin.securityrule.list.actions.edit.label')</a>
+						        </li>
+						        #if($rule.getDeleted() != true)
+								<li>
+						        	<a href="#" id="delete-sr-$rule.id"
+								 	   data-id="$rule.id" 
+								 	   data-name="$rule.name">$action.getText('csl.admin.securityrule.list.actions.delete.label')</a>
+								</li>
+								#else
+								<li>
+									<a href="#" id="unactivate-delete-sr-$rule.id"
+									 data-id="$rule.id" 
+									 data-name="$rule.name" 
+									 title="$action.getText('csl.admin.securityrule.delete.pending.tooltip', $rule.applicationDate)">
+								 		$action.getText('csl.admin.securityrule.list.actions.unactivate.label')</a>
+								</li>
+						        #end
+						    </ul>
+						</div>
+				</div>
+			</div>
+			<div class="aui-group ">
+				<div class="aui-item right-label">
+					<label for="text-input">$action.getText('csl.admin.securityrule.list.active.label')</label>
+				</div>
+				<div class="aui-item">
+					#if ($rule.getActive())
+						<span class="aui-icon aui-icon-small aui-iconfont-success green"></span>  
+					 #else
+					 	<span class="aui-icon aui-icon-small aui-iconfont-devtools-task-disabled orange"></span>
+					 #end
+				</div>
+			</div>
+			 <div class="aui-group">
+				<div class="aui-item right-label">
+					<label for="applicationDate">$action.getText('csl.admin.securityrule.list.applicationdate.label')</label>
+				</div>
+				<div class="aui-item">
+					<span id="applicationDate" class="bold">
+							$action.formatDate($rule.applicationDate)
+					</span>
+					<div class="description">$action.getText('csl.admin.securityrule.list.applicationdate.descr')</div>
+				</div>
+			</div>
+			 <div class="aui-group">
+				<div class="aui-item right-label">
+					<label for="creationDate">$action.getText('csl.admin.securityrule.list.creationdate.label')</label>
+				</div>
+				<div class="aui-item">
+					<span id="creationDate" class="bold">
+							$action.formatDate($rule.creationDate)
+					</span>
+					<div class="description">$action.getText('csl.admin.securityrule.list.creationdate.descr')</div>
+				</div>
+			</div>
+		   <div class="aui-group">
+				<div class="aui-item right-label">
+					<label for="creationUser">$action.getText('csl.admin.securityrule.list.creator.label')</label>
+				</div>
+				<div class="aui-item">
+					<span id="creationUser" class="bold">$rule.creationUser</span>
+					<div class="description">$action.getText('csl.admin.securityrule.list.creator.descr')</div>
+				</div>
+			</div>
+			
+			 <div class="aui-group ">
+				<div class="aui-item right-label">
+					<label for="jql">$action.getText('csl.admin.securityrule.list.jql.label')</label>
+				</div>
+				<div class="aui-item">
+					<span id="jql" class="bold">$rule.jql</span>
+					<div class="description">$action.getText('csl.admin.securityrule.list.jql.descr')</div>
+				</div>
+			</div>
+			
+				<div class="aui-group ">
+					<div class="aui-item right-label">
+						<label for="jira-events">$action.getText('csl.admin.securityrule.list.events.label')</label>
+					</div>
+					<div class="aui-item">
+						#foreach ($event in $rule.getEvents())
+							<span id="jira-events" class="bold" >  
+								$event.getJiraEventName() ( $event.getJiraEventId() )
+							</span>
+							<br>
+						#end
+						<div class="description">$action.getText('csl.admin.securityrule.list.events.descr')</div>
+					</div>
+				</div>
+				<div class="aui-group ">
+					<div class="aui-item right-label">
+						<label for="securityid">$action.getText('csl.admin.securityrule.list.securitylvl.label')</label>
+					</div>
+					<div class="aui-item">
+							<span id="securityid" class="bold" >  
+								$rule.getJiraSecurityName() ( $rule.jiraSecurityId )
+							</span>
+						<div class="securityid">$action.getText('csl.admin.securityrule.list.securitylvl.descr')</div>
+					</div>
+				</div>
+				<div class="aui-group ">
+					<div class="aui-item right-label">
+						<label for="priority">$action.getText('csl.admin.securityrule.list.priority.label')</label>
+					</div>
+					<div class="aui-item">
+							<span id="priority" class="bold" >  
+								$rule.priority
+							</span>
+						<div class="description">$action.getText('csl.admin.securityrule.list.priority.descr')</div>
+					</div>
+				</div>
+				<hr>
+			</div>
+		#end
+	#end

@@ -1,0 +1,101 @@
+$webResourceManager.requireResourcesForContext("csl-admin")
+<html>
+   <head>
+      <title>$action.getText('csl.admin.title')</title>
+      <meta name="decorator" content="atl.admin" />
+      <meta name="admin.active.section" content="admin_plugins_menu/csl_admin_list_sr_section"/>
+      <meta name="admin.active.tab" content="csl_list_sr_config"/>
+   </head>
+   
+ 
+   <body>
+   <header class="aui-page-header">
+        <div class="aui-page-header-inner">
+            <div class="aui-page-header-main">
+                <h2>$action.getText('csl.admin.securityrule.list.header.title')</h2>
+            </div>
+         
+        <div class="aui-page-header-actions">
+            <div class="aui-buttons">
+              <button class="aui-button" id="btn-add-customsecurity-lvl">
+		      		<span class="aui-icon aui-icon-small aui-iconfont-add">View</span>$action.getText('csl.admin.securityrule.add.button.label')
+		      </button>
+            </div>
+        </div>
+        
+        
+        #parse("/templates/admin/fragments/dialog/add-dialog.vm")
+        
+   </header>
+   
+     <div id="sucess-messages" class="aui-message aui-message-success 
+	   		#if($action.getMessage() == "") hide #end">
+		    <p class="title">
+		        <strong>Succes!</strong>
+		    </p>
+		    <p>$action.getMessage()</p>
+		</div>
+	
+	
+   <div class="aui-tabs horizontal-tabs">
+	    <ul class="tabs-menu">
+	        <li class="menu-item active-tab">
+	            <a href="#actives-rules-tabs"><strong>$action.getText('csl.admin.securityrule.tab.activerule.label')</strong></a>
+	        </li>
+	        <li class="menu-item">
+	            <a href="#unactives-rules-tabs"><strong>$action.getText('csl.admin.securityrule.tab.unactiverule.label')</strong></a>
+	        </li>
+	        <li class="menu-item">
+	            <a href="#deleted-rules-tabs"><strong>$action.getText('csl.admin.securityrule.tab.deleterule.label')</strong></a>
+	        </li>
+	    </ul>
+	    <div class="tabs-pane active-pane" id="actives-rules-tabs">
+	   		<p>
+	   			#if ($action.getConfiguration().getLayout() == "tab")
+				 #parse("/templates/admin/fragments/rule/list-active-tab.vm")
+				#else
+				 #parse("/templates/admin/fragments/rule/list-active.vm")
+				#end
+			</p>
+	    </div>
+	    <div class="tabs-pane" id="unactives-rules-tabs">
+	        <p>
+				#if ($action.getConfiguration().getLayout() == "tab")
+				 #parse("/templates/admin/fragments/rule/list-inactive-tab.vm")
+				#else
+				 #parse("/templates/admin/fragments/rule/list-inactive.vm")
+				#end
+			
+	        </p>
+	    </div>
+	    <div class="tabs-pane" id="deleted-rules-tabs">
+	        <p>
+	        	#if ($action.getConfiguration().getLayout() == "tab")
+				 #parse("/templates/admin/fragments/rule/list-deleted-tab.vm")
+				#else
+				 #parse("/templates/admin/fragments/rule/list-deleted.vm")
+				#end
+	        </p>
+	    </div>
+	</div><!-- // .aui-tabs -->
+   			   
+   
+
+	   
+	   #parse("/templates/admin/fragments/dialog/edit-dialog.vm")
+	   
+	   #parse("/templates/admin/fragments/dialog/delete-dialog.vm")
+	   
+	   #parse("/templates/admin/fragments/dialog/unactivate-dialog.vm")
+	   
+	   #parse("/templates/admin/fragments/dialog/active-dialog.vm"	)
+	   
+	   #parse("/templates/admin/fragments/dialog/cancel-dialog.vm"	)
+	    
+	   <form id="actionMessage" action="/secure/ConfigureSecurityRules.jspa" method="POST">
+	   	<input type="hidden" id="message" name="message"/>
+	   	<input type="hidden" id="messageRuleName" name="messageRuleName"/>
+	   </form>
+	    
+   </body>
+</html>

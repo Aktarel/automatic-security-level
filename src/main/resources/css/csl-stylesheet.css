@@ -1,0 +1,43 @@
+.center{
+	text-align: center;	
+}
+.right{
+	min-width : 20%;
+	text-align: right;	
+}
+.right-label{
+	width : 15%;
+	text-align: right;	
+}
+.green{
+	color : green;	
+}
+.orange{
+	color : orange;
+}
+.red{
+	color : red;
+}
+.valign-bot{
+	vertical-align: bottom;
+}
+.bold{
+	font-weight: bold;
+}
+
+.hide{
+	display : none;	
+}
+.aui-datepicker-dialog {
+  z-index: 4000;
+}
+div.tabs-pane h3{
+	padding-top:20px;
+} 
+
+.csl-action{
+    padding-right: 10px;
+}
+.timepicker{
+	text-align : center;
+}

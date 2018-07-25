@@ -1,0 +1,56 @@
+
+
+			<table class="aui aui-table-sortable">
+		    <thead>
+		        <tr>
+		         	<th id="status" class="aui-table-column-unsortable">$action.getText('csl.admin.securityrule.list.status.label')</th>
+		         	<th id="name">$action.getText('csl.admin.securityrule.list.tab.title')</th>
+		            <th id="disableDate">$action.getText('csl.admin.securityrule.list.disabledate.label')</th>
+		            <th id="creationDate">$action.getText('csl.admin.securityrule.list.creationdate.label')</th>
+		            <th id="creationUser">$action.getText('csl.admin.securityrule.list.creator.label')</th>
+		            <th id="jql">$action.getText('csl.admin.securityrule.list.jql.label')</th>
+		            <th id="jira-events">$action.getText('csl.admin.securityrule.list.events.label')</th>
+		            <th id="securityid">$action.getText('csl.admin.securityrule.list.securitylvl.label')</th>
+		            <th id="priority">$action.getText('csl.admin.securityrule.list.priority.label')</th>
+		            <th id="actions" class="aui-table-column-unsortable" >Actions</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		    #if($action.getDeletedSecurityRules().size() > 0)
+			#foreach ($rule in $action.getDeletedSecurityRules())
+		        <tr>
+		        	
+		         	<td headers="active">
+		         	
+		         		#if( $rule.getDeleted() )
+		         		<span class="aui-icon aui-icon-small aui-iconfont-remove red tooltiped" title="$action.getTooltip($rule)">Deleted</span>
+		         		#elseif ($rule.getActive())
+						<span class="aui-icon aui-icon-small aui-iconfont-success green tooltiped" title="$action.getTooltip($rule)"></span>  
+						 #else
+						 	<span class="aui-icon aui-icon-small aui-iconfont-devtools-task-disabled orange tooltiped" title="$action.getTooltip($rule)"></span>
+						 #end
+		         	</td>
+		         	<td headers="name">$rule.name</td>
+		            <td headers="disableDate">$action.formatDate($rule.disableDate)</td>
+		            <td headers="creationDate">$action.formatDate($rule.creationDate)</td>
+		             <td headers="creationUser">$rule.creationUser</td>
+		             <td headers="jql">$rule.jql</td>
+		             <td headers="jira-events">
+		             	#foreach ($event in $rule.getEvents())
+							<span id="jira-events" class="bold" >  
+								$event.getJiraEventName()
+							</span>
+							<br>
+						#end
+					</td>
+		            <td headers="securityid">$rule.getJiraSecurityName()</td>
+		            <td headers="priority">$rule.priority</td>
+		             
+		            <td headers="actions-active">
+		            </td>
+		        </tr>
+	        	#end
+			#end
+		    </tbody>
+		</table>
+		

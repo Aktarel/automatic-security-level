@@ -1,0 +1,87 @@
+$webResourceManager.requireResourcesForContext("csl-config-admin")
+<html>
+   <head>
+      <title>$action.getText('csl.admin.title')</title>
+      <meta name="decorator" content="atl.admin" />
+      <meta name="admin.active.section" content="admin_plugins_menu/csl_admin_section"/>
+      <meta name="admin.active.tab" content="csl_config"/>
+   </head>
+   <body>
+
+ 	<header class="aui-page-header">
+        <div class="aui-page-header-inner">
+            <div class="aui-page-header-main">
+                <h2>$action.getText('csl.admin.securityrule.config.title')</h2>
+            </div>
+            
+        <div class="aui-page-header-actions">
+            <div class="aui-buttons">
+            </div>
+        </div>
+     </header>
+
+      <form action="ConfigureCSL!save.jspa" id="admin-form" class="aui">
+		   <div class="aui-group">
+				<div class="aui-item right-label">
+					<label for="active">$action.getText('csl.admin.securityrule.config.active.label')</label>
+				</div>
+				<div class="aui-item">
+					<input class="checkbox" type="checkbox" id="active" value="true" name="active" #if ($action.getConfiguration().getActive()) checked #end>
+				</div>
+				<div class="aui-item">
+				</div>
+				<div class="aui-item">
+				</div>
+			</div>
+		<br>
+			<div class="aui-group">
+				<div class="aui-item right-label">
+					<label for="active">$action.getText('csl.admin.securityrule.config.dateformat.label')</label>
+				</div>
+				<div class="aui-item">
+					<input class="text medium-field" type="text" #if ($action.getConfiguration().getDateFormat()) value="$action.getConfiguration().getDateFormat()" #end name="dateFormat" id="dateFormat" >
+				</div>
+				<div class="aui-item">
+				</div>
+				<div class="aui-item">
+				</div>
+			</div>
+		<br>
+			<div class="aui-group">
+				<div class="aui-item right-label">
+					<label for="layout">$action.getText('csl.admin.securityrule.config.layout.label')</label>
+				</div>
+				
+				<div class="aui-item">
+					<select id="layout" name="layout" >
+					  <option #if ($action.getConfiguration().getLayout() == "classic") selected #end value="classic" >$action.getText('csl.admin.securityrule.config.layout.option.descriptive.label')</option> 
+					  <option #if ($action.getConfiguration().getLayout() == "tab") selected #end  value="tab" >$action.getText('csl.admin.securityrule.config.layout.option.tab.label')</option>
+					</select>
+				</div>
+				<div class="aui-item">
+				</div>
+				<div class="aui-item">
+				</div>
+			</div>
+			<br>
+			<div class="aui-group">
+				<div class="aui-item right-label">
+					<label for="silent">$action.getText('csl.admin.securityrule.config.silent.label')</label>
+				</div>
+				
+				<div class="aui-item">
+					<input class="checkbox" type="checkbox" id="silent" value="true" name="silent" #if ($action.getConfiguration().getSilent()) checked #end>
+				</div>
+				<div class="aui-item">
+				</div>
+				<div class="aui-item">
+				</div>
+			</div>
+       	<div class="buttons-container">
+            <div class="buttons">
+               <input class="aui-button aui-button-primary" type="submit" value="$action.getText('csl.admin.securityrule.config.save.label')" id="save-button">
+            </div>
+         </div>
+      </form>	
+   </body>
+</html>
