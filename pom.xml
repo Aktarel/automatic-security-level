@@ -11,11 +11,11 @@
 
     <organization>
         <name>Nicolas LEBEC</name>
-        <url>www.google.com</url>
+        <url>tobedefined</url>
     </organization>
 
-    <name>Custom Security Level Management</name>
-    <description>Manage security Level based on JQL</description>
+    <name>Automatic Application Security Level Management</name>
+    <description>This plugin allow you to create rule that automaticaly apply a security level</description>
     <packaging>atlassian-plugin</packaging>
   
     <dependencies>
@@ -25,9 +25,6 @@
             <version>${jira.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Add dependency on jira-core if you want access to JIRA implementation classes as well as the sanctioned API. -->
-        <!-- This is not normally recommended, but may be required eg when migrating a plugin originally developed against JIRA 4.x -->
-
         <dependency>
             <groupId>com.atlassian.jira</groupId>
             <artifactId>jira-core</artifactId>

@@ -327,53 +327,6 @@ public class SecurityRuleRestController {
 		return Response.status(errorCode).entity(response).build();
 	}
 
-	@GET
-	@Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/isl")
-	public Response hasRight(@Context HttpServletRequest request) throws SQLException {
-		String userName = request.getRemoteUser();
-		ApplicationUser user = this.userManager.getUserByKey(userName);
-		UpdateSecurityRuleResponse response = new UpdateSecurityRuleResponse();
-		int errorCode = 201;
-		Collection<IssueSecurityLevel> isl = this.issueSecurityManager.getAllSecurityLevelsForUser(user);
-		if (user != null) {
-			System.out.println(user.toString());
-		} else {
-			System.out.println("Utilsiateur Null!");
-		}
-		System.out.println("Test si permissions pour cet utilisateur : " + userName);
-		for (IssueSecurityLevel issueSecurityLevel : isl) {
-			System.out.println(issueSecurityLevel.getId() + issueSecurityLevel.getName());
-		}
-
-		return Response.status(errorCode).entity(response).build();
-	}
-
-	@GET
-	@Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/isl/{issueKey}")
-	public Response canSeeIssue(@PathParam(value = "issueKey") String issueKey, @Context HttpServletRequest request)
-			throws SQLException, GenericEntityException, DataAccessException {
-		String userName = request.getRemoteUser();
-		ApplicationUser user = this.userManager.getUserByKey(userName);
-		UpdateSecurityRuleResponse response = new UpdateSecurityRuleResponse();
-		int errorCode = 200;
-		if (this.issueManager.isExistingIssueKey(issueKey)) {
-			MutableIssue mi = this.issueManager.getIssueByCurrentKey(issueKey);
-			Long isl = mi.getSecurityLevelId();
-			IssueSecurityLevel finalIsl = issueSecurityManager.getSecurityLevel(isl);
-			PermissionManager pm = ComponentAccessor.getPermissionManager();
-
-			if (pm.hasPermission(ProjectPermissions.CREATE_ISSUES, mi, user)) {
-				System.out.println("Utilisateur habilité !");
-			} else {
-				System.out.println("Utilisateur non habilité !");
-			}
-		}
-		return Response.status(errorCode).entity(response).build();
-	}
 
 	private void checkParameters(AddSecurityRuleRequestBody body, ApplicationUser user) {
 		final SearchService.ParseResult parseResult = searchService.parseQuery(user, body.getJql());
