@@ -36,7 +36,7 @@ import fr.nlebec.jira.plugins.customseclvl.service.SecurityRuleService;
 @Component
 public class DefaultCSLJobRunner implements LifecycleAware {
 
-	Logger log = Logger.getLogger(DefaultCSLJobRunner.class);
+	private Logger log = Logger.getLogger(DefaultCSLJobRunner.class);
 
 	private SchedulerService schedulerService;
 
@@ -136,7 +136,7 @@ public class DefaultCSLJobRunner implements LifecycleAware {
 			try {
 				schedulerService.scheduleJob(JobId.of(pendingJob.getJobId()), jobConfig);
 			} catch (SchedulerServiceException e) {
-				e.printStackTrace();
+				log.error(e.getMessage());
 			}
 		}
 
